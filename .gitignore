@@ -24,3 +24,4 @@ sims.*/
 # OS files
 .DS_Store
 
+.ssh/
