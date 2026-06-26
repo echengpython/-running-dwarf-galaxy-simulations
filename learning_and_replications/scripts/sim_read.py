@@ -3,9 +3,9 @@ import illustris_python as il
 import scipy.stats as sts
 from scipy.spatial import KDTree
 
-basePath = "/Users/elingcheng/Illustris-3/output"
+basePath = '../sims.TNG/TNG50-1/output/'
 host_fields = ['Group_M_Crit200','GroupFirstSub','GroupMass','GroupMassType','GroupPos','Group_R_Crit200','GroupVel'] # list of Group fields to read and set as attributes of hst class
-sub_fields = ['SubhaloMass','SubhaloMassInRadType','SubhaloGrNr','SubhaloPos','SubhaloVel','SubhaloStellarPhotometrics','SubhaloSFRinRad'] # list of Suhalo fields to read and set as attributes of sub class
+sub_fields = ['SubhaloFlag','SubhaloMass','SubhaloMassInRadType','SubhaloGrNr','SubhaloPos','SubhaloVel','SubhaloStellarPhotometrics','SubhaloSFRinRad'] # list of Suhalo fields to read and set as attributes of sub class
 h0 = 0.677
 dconv = 1e-3/h0
 mconv = 10 - np.log10(h0)
@@ -17,11 +17,11 @@ class obj(object): # define a class and set class attributes from the keys of di
 class sim(obj): # read the Group and Subhalo catalogs and create the hst and sub objects respectively alongwith their attributes
     def __init__(self,exsub_fields=0,exgrp_fields=0):
             if exgrp_fields: host_fields.extend(exgrp_fields)
-            host_halos = il.groupcat.loadHalos(basePath,135,fields=host_fields)
+            host_halos = il.groupcat.loadHalos(basePath,99,fields=host_fields)
             self.hst = obj(host_halos)
             
             if exsub_fields: sub_fields.extend(exsub_fields)
-            sub_halos = il.groupcat.loadSubhalos(basePath,135,fields=sub_fields)
+            sub_halos = il.groupcat.loadSubhalos(basePath,99,fields=sub_fields)
             self.sub = obj(sub_halos)
 
     def mass_add(self): # take logarithm of mass and SFR values and substitute for Hubble factor h
